@@ -27,12 +27,40 @@
 
   </ion-card>
 
-  <p>{{ titleText }} </p>
-  <p>{{ locationText }} </p>
-  <p>{{ startDateText }}</p>
-  <p>{{ startTimeText }}</p>
-  <p>{{ endTimeText }}</p>
-  <p>{{ endDateText }}</p>
+  <!-- <p>{{ calendarEvent.titleText }} </p>
+  <p>{{ calendarEvent.locationText }} </p>
+  <p>{{ calendarEvent.startDateText }}</p>
+  <p>{{ calendarEvent.startTimeText }}</p>
+  <p>{{ calendarEvent.endTimeText }}</p>
+  <p>{{ calendarEvent.endDateText }}</p> -->
+
+
+  <!-- <div *ngFor = "let event of calendarEventList">
+    <p>{{ event.titleText }} </p>
+    <p>{{ event.locationText }} </p>
+    <p>{{ event.startDateText }}</p>
+    <p>{{ event.startTimeText }}</p>
+    <p>{{ event.endTimeText }}</p>
+    <p>{{ event.endDateText }}</p>
+  </div> -->
+
+
+  <div *ngFor = "let event of calendarEventList">
+    <ion-card>
+      <ion-item>
+        <ion-icon name="alarm-outline" slot="start"></ion-icon>
+        <ion-label>{{ event.startDateText}}</ion-label>
+        <ion-button fill="outline" slot="end" color="danger" (click)="deleteEvent(event.titleText)">Remove</ion-button>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label slot = "start">Title: {{ event.titleText }}</ion-label>
+      </ion-item>
+      <ion-item>Location: {{ event.locationText }}</ion-item>
+      <ion-item>Start Time: {{ event.startTimeText }}</ion-item>
+      <ion-item>End Time: {{ event.endTimeText }}</ion-item>
+    </ion-card>
+  </div>
 
 
 </ion-content>

@@ -14,6 +14,8 @@ export class Tab2Page {
     public router: Router
     ) {}
 
+  public calendarEventStringList = '';
+
   titleText: string;
   locationText: string;
   startDateText = '2020-05-25';
@@ -39,13 +41,10 @@ export class Tab2Page {
     });
     toast.present();
 
+    this.calendarEventStringList = this.calendarEventStringList + this.titleText + ',' + this.locationText + ',' + this.startDateText 
+    + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + '|';
+
     this.router.navigate(['tabs/tab1'], {queryParams: {
-      titleText: this.titleText,
-      locationText: this.locationText,
-      startDateText: this.startDateText,
-      startTimeText: this.startTimeText,
-      endTimeText: this.endTimeText,
-      endDateText: this.endDateText,
-    }});
-  }
+      calendarEventStringList: this.calendarEventStringList,
+    }});  }
 }
