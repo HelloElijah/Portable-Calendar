@@ -43,7 +43,7 @@ export class Tab2Page {
     toast.present();
 
     this.id = Math.floor(Math.random() * 999999);
-    this.calendarEventStringList = this.calendarEventStringList + this.titleText + ',' + this.locationText + ',' + this.startDateText 
+    this.calendarEventStringList = this.titleText + ',' + this.locationText + ',' + this.startDateText 
     + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + ',' + this.id + '|';
 
     this.router.navigate(['tabs/tab1'], {queryParams: {

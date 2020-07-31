@@ -55,7 +55,7 @@
       <ion-item>
         <ion-icon name="alarm-outline" slot="start"></ion-icon>
         <ion-label>{{ event.startDateText}}</ion-label>
-        <ion-button fill="outline" slot="end" color="danger" (click)="deleteEvent(event.id)">Remove</ion-button>
+        <ion-button fill="outline" slot="end" color="danger" (click)="requestConfirm(event.id)">Remove</ion-button>
       </ion-item>
   
       <ion-item>

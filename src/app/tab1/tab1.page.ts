@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { alertController } from '@ionic/core';
 
 @Component({
   selector: 'app-tab1',
@@ -46,7 +47,7 @@ export class Tab1Page implements OnInit{
   }
 
   convertToList(){
-    this.calendarEventList = [];
+    // this.calendarEventList = [];
     // console.log('Whole String: ' + this.calendarEventStringList);
     const eventList = this.calendarEventStringList.split('|');
     for (const event of eventList) {
@@ -71,9 +72,25 @@ export class Tab1Page implements OnInit{
     }
   }
 
-  deleteEvent(id: string){
+  async requestConfirm(id: string){
     console.log(id);
-    this.calendarEventList = this.calendarEventList.filter(item => item.id !== id);
+    const alert = await alertController.create({
+      header: 'Delete this event',
+      buttons: [{
+        text: 'Yes',
+        role: 'delete',
+        handler: () => {
+          this.calendarEventList = this.calendarEventList.filter(item => item.id !== id);
+        }
+      },
+      {
+        text: 'No',
+        role: 'cancel'
+      }
+    ]
+    });
+
+    await alert.present();
   }
 
 
