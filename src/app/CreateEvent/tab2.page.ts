@@ -16,12 +16,13 @@ export class Tab2Page {
 
   public calendarEventStringList = '';
 
-  titleText: string;
-  locationText: string;
-  startDateText = '2020-05-25';
-  startTimeText: string;
-  endTimeText: string;
-  endDateText: string;
+  public titleText: string;
+  public locationText: string;
+  public startDateText = '2020-05-25';
+  public startTimeText: string;
+  public endTimeText: string;
+  public endDateText: string;
+  public id;
 
   async createEvent(){
     const toast = await this.toastController.create({
@@ -41,8 +42,9 @@ export class Tab2Page {
     });
     toast.present();
 
+    this.id = Math.floor(Math.random() * 999999);
     this.calendarEventStringList = this.calendarEventStringList + this.titleText + ',' + this.locationText + ',' + this.startDateText 
-    + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + '|';
+    + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + ',' + this.id + '|';
 
     this.router.navigate(['tabs/tab1'], {queryParams: {
       calendarEventStringList: this.calendarEventStringList,

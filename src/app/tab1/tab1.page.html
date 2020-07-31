@@ -6,6 +6,11 @@
 
 <ion-content>
   <ion-searchbar></ion-searchbar>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-card>
     <ion-item>
       <ion-icon name="alarm-outline" slot="start"></ion-icon>
@@ -50,7 +55,7 @@
       <ion-item>
         <ion-icon name="alarm-outline" slot="start"></ion-icon>
         <ion-label>{{ event.startDateText}}</ion-label>
-        <ion-button fill="outline" slot="end" color="danger" (click)="deleteEvent(event.titleText)">Remove</ion-button>
+        <ion-button fill="outline" slot="end" color="danger" (click)="deleteEvent(event.id)">Remove</ion-button>
       </ion-item>
   
       <ion-item>
@@ -59,6 +64,7 @@
       <ion-item>Location: {{ event.locationText }}</ion-item>
       <ion-item>Start Time: {{ event.startTimeText }}</ion-item>
       <ion-item>End Time: {{ event.endTimeText }}</ion-item>
+      <ion-item>{{ event.id }}</ion-item>
     </ion-card>
   </div>
 

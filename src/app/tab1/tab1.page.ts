@@ -8,14 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class Tab1Page implements OnInit{
   public dataReceived = '';
-  public calendarEvent = {
-    titleText: 'Error, you should not see this',
-    locationText: 'Error, you should not see this',
-    startDateText: 'Error, you should not see this',
-    startTimeText: 'Error, you should not see this',
-    endTimeText: 'Error, you should not see this',
-    endDateText: 'Error, you should not see this',
-  };
   public calendarEventStringList = '';
   public calendarEventList = [];
 
@@ -44,6 +36,15 @@ export class Tab1Page implements OnInit{
     });
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   convertToList(){
     this.calendarEventList = [];
     // console.log('Whole String: ' + this.calendarEventStringList);
@@ -63,14 +64,16 @@ export class Tab1Page implements OnInit{
           startTimeText: eventDetail[3],
           endTimeText: eventDetail[4],
           endDateText: eventDetail[5],
+          id: eventDetail[6]
         });
         // console.log(this.calendarEventList);
       }
     }
   }
 
-  deleteEvent(event: string){
-    console.log(event);
+  deleteEvent(id: string){
+    console.log(id);
+    this.calendarEventList = this.calendarEventList.filter(item => item.id !== id);
   }
 
 
