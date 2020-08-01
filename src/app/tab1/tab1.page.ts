@@ -7,34 +7,23 @@ import { alertController } from '@ionic/core';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page{
   public dataReceived = '';
   public calendarEventString = '';
   public calendarEventList = [];
+  public deletedId;
 
   constructor(public activatedRoute: ActivatedRoute) {
   }
 
-  async ngOnInit(){
-    await this.activatedRoute.queryParams.subscribe((data) => {
+  ionViewWillEnter(){
+    this.activatedRoute.queryParams.subscribe((data) => {
       this.dataReceived = JSON.stringify(data);
-      const obj = JSON.parse(this.dataReceived);
-      this.calendarEventString = obj.calendarEventString;
+      const transferObject = JSON.parse(this.dataReceived);
+      this.calendarEventString = transferObject.calendarEventString;
       if (this.calendarEventString !== undefined){
         this.convertToList();
       }
-
-
-      // this.calendarEvent.titleText = obj.titleText;
-      // this.calendarEvent.locationText = obj.locationText;
-      // // this.calendarEvent.startDateText = obj.startDateText.split('T', 2)[0];
-      // // this.calendarEvent.startTimeText = obj.startTimeText.split('T', 2)[1].substring(0, 5);
-      // // this.calendarEvent.endTimeText = obj.endTimeText.split('T', 2)[1].substring(0, 5);
-      // // this.calendarEvent.endDateText = obj.endDateText.split('T', 2)[0];
-      // this.calendarEvent.startDateText = obj.startDateText.substring(0, 10);
-      // this.calendarEvent.startTimeText = obj.startTimeText.substring(11, 16);
-      // this.calendarEvent.endTimeText = obj.endTimeText.substring(11, 16);
-      // this.calendarEvent.endDateText = obj.endDateText.substring(0, 10);
     });
   }
 
@@ -48,33 +37,20 @@ export class Tab1Page implements OnInit{
   }
 
   convertToList(){
-    // this.calendarEventList = [];
-    // console.log('Whole String: ' + this.calendarEventStringList);
-    // const eventList = this.calendarEventStringList.split('|');
-    if (this.calendarEventString !== '') {
-      // console.log('One Event: ' + event);
-      const eventDetail = this.calendarEventString.split(',');
-      console.log('List: ' + eventDetail);
-      console.log(eventDetail[6]);
-      eventDetail[3] = eventDetail[3].substring(11, 16);
-      eventDetail[4] = eventDetail[4].substring(11, 16);
+    const eventDetail = this.calendarEventString.split(',');
+    eventDetail[3] = eventDetail[3].substring(11, 16);
+    eventDetail[4] = eventDetail[4].substring(11, 16);
 
-      console.log(this.calendarEventList);
-
-
-      if (this.calendarEventList.some(x => x.id === eventDetail[6]) === false){
-        console.log('Here');
-        this.calendarEventList.push({
-          titleText: eventDetail[0],
-          locationText: eventDetail[1],
-          startDateText: eventDetail[2],
-          startTimeText: eventDetail[3],
-          endTimeText: eventDetail[4],
-          endDateText: eventDetail[5],
-          id: eventDetail[6]
-        });
-      }
-      console.log(this.calendarEventList);
+    if (this.calendarEventList.some(x => x.id === eventDetail[6]) === false && eventDetail[6] !== this.deletedId){
+      this.calendarEventList.push({
+        titleText: eventDetail[0],
+        locationText: eventDetail[1],
+        startDateText: eventDetail[2],
+        startTimeText: eventDetail[3],
+        endTimeText: eventDetail[4],
+        endDateText: eventDetail[5],
+        id: eventDetail[6]
+      });
     }
   }
 
@@ -87,6 +63,7 @@ export class Tab1Page implements OnInit{
         role: 'delete',
         handler: () => {
           this.calendarEventList = this.calendarEventList.filter(item => item.id !== id);
+          this.deletedId = id;
         }
       },
       {
