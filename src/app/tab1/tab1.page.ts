@@ -7,16 +7,15 @@ import { alertController } from '@ionic/core';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page{
+export class Tab1Page implements OnInit{
   public dataReceived = '';
   public calendarEventString = '';
   public calendarEventList = [];
-  public deletedId;
+  public deletedIdList = [];
 
-  constructor(public activatedRoute: ActivatedRoute) {
-  }
+  constructor(public activatedRoute: ActivatedRoute) {}
 
-  ionViewWillEnter(){
+  ngOnInit(){
     this.activatedRoute.queryParams.subscribe((data) => {
       this.dataReceived = JSON.stringify(data);
       const transferObject = JSON.parse(this.dataReceived);
@@ -38,10 +37,13 @@ export class Tab1Page{
 
   convertToList(){
     const eventDetail = this.calendarEventString.split(',');
+    eventDetail[2] = eventDetail[2].substring(0, 10);
     eventDetail[3] = eventDetail[3].substring(11, 16);
     eventDetail[4] = eventDetail[4].substring(11, 16);
+    eventDetail[5] = eventDetail[5].substring(0, 10);
 
-    if (this.calendarEventList.some(x => x.id === eventDetail[6]) === false && eventDetail[6] !== this.deletedId){
+    if (this.calendarEventList.some(x => x.id === eventDetail[6]) === false
+    && this.deletedIdList.some(x => x === eventDetail[6]) === false){
       this.calendarEventList.push({
         titleText: eventDetail[0],
         locationText: eventDetail[1],
@@ -52,18 +54,28 @@ export class Tab1Page{
         id: eventDetail[6]
       });
     }
+
+    this.calendarEventList.sort((a, b) => {
+      if (a.startDateText > b.startDateText) {return 1; }
+      else if (a.startDateText < b.startDateText) {return -1; }
+      else {
+          if (a.startTimeText > b.startTimeText) {return 1; }
+          else {return -1; }
+      }
+    });
+
   }
 
-  async requestConfirm(id: string){
+  async deleteOneEvent(id: string){
     console.log(id);
     const alert = await alertController.create({
-      header: 'Delete this event',
+      header: 'Delete this event?',
       buttons: [{
         text: 'Yes',
         role: 'delete',
         handler: () => {
           this.calendarEventList = this.calendarEventList.filter(item => item.id !== id);
-          this.deletedId = id;
+          this.deletedIdList.push(id);
         }
       },
       {
@@ -76,7 +88,28 @@ export class Tab1Page{
     await alert.present();
   }
 
-
+  async deleteAllEvents(){
+    const alert = await alertController.create({
+      header: 'Are you sure to Delete all the events?',
+      buttons: [{
+        text: 'Yes',
+        role: 'delete',
+        handler: () => {
+          for (let event of this.calendarEventList){
+            console.log(event.id);
+            this.deletedIdList.push(event.id);
+          }
+          this.calendarEventList = [];
+        }
+      },
+      {
+        text: 'No',
+        role: 'cancel'
+      }
+    ]
+    });
+    await alert.present();
+  }
 
 
 
