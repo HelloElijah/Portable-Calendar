@@ -9,7 +9,7 @@ import { alertController } from '@ionic/core';
 })
 export class Tab1Page implements OnInit{
   public dataReceived = '';
-  public calendarEventStringList = '';
+  public calendarEventString = '';
   public calendarEventList = [];
 
   constructor(public activatedRoute: ActivatedRoute) {
@@ -19,10 +19,11 @@ export class Tab1Page implements OnInit{
     await this.activatedRoute.queryParams.subscribe((data) => {
       this.dataReceived = JSON.stringify(data);
       const obj = JSON.parse(this.dataReceived);
-      this.calendarEventStringList = obj.calendarEventStringList;
-      if (this.calendarEventStringList !== undefined){
+      this.calendarEventString = obj.calendarEventString;
+      if (this.calendarEventString !== undefined){
         this.convertToList();
       }
+
 
       // this.calendarEvent.titleText = obj.titleText;
       // this.calendarEvent.locationText = obj.locationText;
@@ -49,15 +50,20 @@ export class Tab1Page implements OnInit{
   convertToList(){
     // this.calendarEventList = [];
     // console.log('Whole String: ' + this.calendarEventStringList);
-    const eventList = this.calendarEventStringList.split('|');
-    for (const event of eventList) {
-      if (event !== '') {
-        // console.log('One Event: ' + event);
-        let eventDetail = event.split(',');
-        // console.log('List: ' + eventDetail);
-        eventDetail[3] = eventDetail[3].substring(11, 16);
-        eventDetail[4] = eventDetail[4].substring(11, 16);
+    // const eventList = this.calendarEventStringList.split('|');
+    if (this.calendarEventString !== '') {
+      // console.log('One Event: ' + event);
+      const eventDetail = this.calendarEventString.split(',');
+      console.log('List: ' + eventDetail);
+      console.log(eventDetail[6]);
+      eventDetail[3] = eventDetail[3].substring(11, 16);
+      eventDetail[4] = eventDetail[4].substring(11, 16);
 
+      console.log(this.calendarEventList);
+
+
+      if (this.calendarEventList.some(x => x.id === eventDetail[6]) === false){
+        console.log('Here');
         this.calendarEventList.push({
           titleText: eventDetail[0],
           locationText: eventDetail[1],
@@ -67,8 +73,8 @@ export class Tab1Page implements OnInit{
           endDateText: eventDetail[5],
           id: eventDetail[6]
         });
-        // console.log(this.calendarEventList);
       }
+      console.log(this.calendarEventList);
     }
   }
 

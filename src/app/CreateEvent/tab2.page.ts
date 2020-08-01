@@ -14,7 +14,7 @@ export class Tab2Page {
     public router: Router
     ) {}
 
-  public calendarEventStringList = '';
+  public calendarEventString = '';
 
   public titleText: string;
   public locationText: string;
@@ -42,11 +42,15 @@ export class Tab2Page {
     });
     toast.present();
 
+    console.log('create an event');
+
     this.id = Math.floor(Math.random() * 999999);
-    this.calendarEventStringList = this.titleText + ',' + this.locationText + ',' + this.startDateText 
-    + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + ',' + this.id + '|';
+    this.calendarEventString = this.titleText + ',' + this.locationText + ',' + this.startDateText
+    + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + ',' + this.id;
 
     this.router.navigate(['tabs/tab1'], {queryParams: {
-      calendarEventStringList: this.calendarEventStringList,
-    }});  }
+      calendarEventString: this.calendarEventString,
+    }});
+
+  }
 }
