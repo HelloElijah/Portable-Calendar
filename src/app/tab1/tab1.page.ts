@@ -60,7 +60,7 @@ export class Tab1Page implements OnInit{
       else if (a.startDateText < b.startDateText) {return -1; }
       else {
           if (a.startTimeText > b.startTimeText) {return 1; }
-          else {return -1; }
+          else if (a.startTimeText > b.startTimeText) {return -1; }
       }
     });
 

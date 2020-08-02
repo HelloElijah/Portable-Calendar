@@ -44,7 +44,7 @@ export class Tab2Page {
 
     console.log('create an event');
 
-    this.id = Math.floor(Math.random() * 999999);
+    this.id = Math.floor(Math.random() * 99999999);
     this.calendarEventString = this.titleText + ',' + this.locationText + ',' + this.startDateText
     + ',' + this.startTimeText + ',' + this.endTimeText + ',' + this.endDateText + ',' + this.id;
 
