@@ -6,28 +6,28 @@
 
 <ion-content fullscreen={true}>
   <ion-list>
-    <ion-item>
+    <ion-item [color] = "titleCheck == true ? 'light': 'danger' ">
       <ion-label position="floating">Title</ion-label>
       <ion-input [(ngModel)]="titleText"></ion-input>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full" [color] = "locationCheck == true ? 'light': 'danger' ">
       <ion-label position="floating">Location</ion-label>
       <ion-input [(ngModel)]="locationText"></ion-input>
     </ion-item>
     <ion-item-divider></ion-item-divider>
-    <ion-item>
+    <ion-item color = 'light'>
       <ion-label>Start Date</ion-label>
       <ion-datetime placeholder="Select Date" [(ngModel)]="startDateText"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <ion-item  [color] = "startTimeCheck == true ? 'light': 'danger' ">
       <ion-label>Start Time</ion-label>
       <ion-datetime display-format="h:mm A" picker-format="h:mm A" placeholder="Select Time" [(ngModel)]="startTimeText"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <ion-item [color] = "endTimeCheck == true ? 'light': 'danger' ">
       <ion-label>End Time</ion-label>
       <ion-datetime display-format="h:mm A" picker-format="h:mm A" placeholder="Select Time" [(ngModel)]="endTimeText"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <ion-item [color] = "endDateCheck == true ? 'light': 'danger' ">
       <ion-label>End Date</ion-label>
       <ion-datetime value="1990-02-20" placeholder="Select Date" [(ngModel)]="endDateText"></ion-datetime>
     </ion-item>
