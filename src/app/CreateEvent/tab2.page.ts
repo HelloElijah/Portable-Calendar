@@ -91,28 +91,28 @@ export class Tab2Page {
     }
     else if (this.endTimeText < this.startTimeText && this.endDateText.substring(0, 10) === this.startDateText){
       this.endTimeCheck = false;
-      this.errorMessage = 'Whoops, End time should be after Start time';
+      this.errorMessage = 'Whoops, End Time should be after Start Time';
     }
     if (this.endDateText === undefined){
       this.endDateCheck = false;
-      this.errorMessage = 'Whoops, you need to Enter end date';
+      this.errorMessage = 'Whoops, you need to Enter the End Date';
     }
     else if (this.endDateText < this.startDateText){
       this.endDateCheck = false;
-      this.errorMessage = 'Whoops, End date should be after Start date';
+      this.errorMessage = 'Whoops, End Date should be after Start Date';
     }
 
     if (this.startTimeText === undefined){
       this.startTimeCheck = false;
-      this.errorMessage = 'Whoops, you need to Enter start time';
+      this.errorMessage = 'Whoops, you need to Enter Start Time';
     }
     if (this.locationText === undefined){
       this.locationCheck = false;
-      this.errorMessage = 'Whoops, you need to Enter the location';
+      this.errorMessage = 'Whoops, you need to Enter the Location';
     }
     if (this.titleText === undefined){
       this.titleCheck = false;
-      this.errorMessage = 'Whoops, you need to Enter the title';
+      this.errorMessage = 'Whoops, you need to Enter the Title';
     }
     return this.titleCheck && this.locationCheck && this.startTimeCheck && this.endTimeCheck && this.endDateCheck;
   }

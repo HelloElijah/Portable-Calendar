@@ -28,6 +28,7 @@ export class Tab1Page implements OnInit{
 
   doRefresh(event) {
     console.log('Begin async operation');
+    this.ngOnInit();
 
     setTimeout(() => {
       console.log('Async operation has ended');
@@ -110,6 +111,44 @@ export class Tab1Page implements OnInit{
     });
     await alert.present();
   }
+
+  // async filterList(evt){
+  //   const alert = await alertController.create({
+  //     header: 'Are you sure to Delete all the events?',
+  //     buttons: [{
+  //       text: 'Yes',
+  //       role: 'delete',
+  //       handler: () => {
+  //         for (let event of this.calendarEventList){
+  //           console.log(event.id);
+  //           this.deletedIdList.push(event.id);
+  //         }
+  //         this.calendarEventList = [];
+  //       }
+  //     },
+  //     {
+  //       text: 'No',
+  //       role: 'cancel'
+  //     }
+  //   ]
+  //   });
+  //   await alert.present();
+
+
+  //   const searchTerm = evt.srcElement.value;
+  //   console.log(searchTerm);
+
+  //   if (!searchTerm){
+  //     return;
+  //   }
+
+  //   this.calendarEventList = this.calendarEventList.filter(calendarEvent => {
+  //     if (calendarEvent.titleText && searchTerm) {
+  //       return (calendarEvent.titleText.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+  //     }
+  //   });
+
+  // }
 
 
 
